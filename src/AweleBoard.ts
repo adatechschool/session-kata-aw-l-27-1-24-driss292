@@ -31,4 +31,47 @@ export class AweleBoard {
   public isEmpty(): boolean {
     return this.cases.every((seed) => seed === 0);
   }
+
+  // J'uitlise le modulo % pour simuler un plateau circulaire pour éviter de return un valeur hors du plateau
+  public getNextCase(index: number): number {
+    return (index + 1) % this.cases.length;
+  }
+
+  public getPreviousCase(index: number): number {
+    return (index - 1 + this.cases.length) % this.cases.length;
+  }
+
+  // Semer les graines à partir d'une case
+  public saw(startIndex: number): void {
+    let seeds = this.cases[startIndex];
+
+    if (seeds === 0) {
+      console.log("Impossible de semer depuis une case vide");
+      return;
+    }
+
+    this.cases[startIndex] = 0;
+    let currentIndex = startIndex;
+
+    while (seeds > 0) {
+      currentIndex = this.getNextCase(currentIndex);
+      this.cases[currentIndex] += 1;
+      seeds--;
+    }
+  }
+
+  // Récolter les graines à partir d'une case
+
+  public harvest(startIndex: number): number {
+    let totalSeeds = 0;
+    let currentIndex = startIndex;
+
+    while (this.cases[currentIndex] > 0) {
+      totalSeeds += this.cases[currentIndex];
+      this.cases[currentIndex] = 0;
+      currentIndex = this.getPreviousCase(currentIndex);
+    }
+
+    return totalSeeds;
+  }
 }
