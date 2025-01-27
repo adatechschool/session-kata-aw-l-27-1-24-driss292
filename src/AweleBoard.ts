@@ -1,4 +1,4 @@
-class AweleBoard {
+export class AweleBoard {
   private letters: string[];
   private cases: number[];
   private seedCount = 4; // nombre initial de graines par case
@@ -32,13 +32,3 @@ class AweleBoard {
     return this.cases.every((seed) => seed === 0);
   }
 }
-
-// Création d'un tableau
-const board = new AweleBoard();
-
-// Affichage du tableau dans la console
-console.log("Plateau initial :");
-board.display();
-
-// Je vérifie si le tableau est vide
-console.log("\nLe plateau est-il vide ?", board.isEmpty());
