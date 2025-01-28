@@ -54,31 +54,11 @@ export class AweleBoard {
     let currentIndex = startIndex;
 
     while (seeds > 0) {
-      currentIndex = this.getNextCase(currentIndex);
+      currentIndex = this.getPreviousCase(currentIndex);
       this.cases[currentIndex] += 1;
       seeds--;
     }
   }
 
   // Récolter les graines à partir d'une case
-  public harvest(startIndex: number): number {
-    let totalSeeds = 0;
-    let currentIndex = startIndex;
-
-    // Je commance la récolte de la case de départ et des cases précédentes
-    do {
-      // Si la case contient des graines, on les récolte
-      if (this.cases[currentIndex] > 0) {
-        // Ajouter les graines de la case à totalSeeds
-        totalSeeds += this.cases[currentIndex];
-        // Vider la case après récolte
-        this.cases[currentIndex] = 0;
-      }
-      // Je passe à la case précédente
-      currentIndex = this.getPreviousCase(currentIndex);
-      // La récolte s'arrête si on revient à la case de départ ou si la case est vide
-    } while (currentIndex !== startIndex && this.cases[currentIndex] !== 0);
-
-    return totalSeeds;
-  }
 }
